@@ -206,3 +206,50 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+
+// ZENTRO NEX PORTFOLIO IMAGE ZOOM
+
+const portfolioImages = document.querySelectorAll(".portfolio-card img");
+
+const lightbox = document.getElementById("imageLightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const closeLightbox = document.getElementById("lightboxClose");
+
+// Open image
+portfolioImages.forEach((img) => {
+    img.addEventListener("click", () => {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+    });
+});
+
+// Close image
+function hideLightbox() {
+    lightbox.classList.remove("active");
+    lightboxImage.src = "";
+    document.body.style.overflow = "";
+}
+
+closeLightbox.addEventListener("click", hideLightbox);
+
+// Click outside image to close
+lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+        hideLightbox();
+    }
+});
+
+// Click enlarged image to close
+lightboxImage.addEventListener("click", hideLightbox);
+
+// ESC key to close
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox.classList.contains("active")) {
+        hideLightbox();
+    }
+});
+
